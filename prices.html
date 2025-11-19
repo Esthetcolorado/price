@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EsthetColorado — Услуги</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+<style>
+  :root {
+    --primary: #477a25;        /* Фиолетовый акцент */
+    --primary-light:  #fcf9fe;
+    --text: black;
+    --text-light: #666;
+    --bg-start: #fcf9fe;
+    --bg-end: #fdf7ff;
+    --card-bg: #ffffff;
+    --shadow: 0 8px 30px rgba(142, 45, 226, 0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+	body {
+	  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+	  background: 
+		/* Удалите SVG-узор, оставьте только: */
+		url('image.jpg') center top/cover no-repeat,
+		linear-gradient(150deg, var(--bg-start), var(--bg-end));
+	  color: var(--text);
+	  line-height: 1.6;
+	  padding: 16px;
+	  min-height: 100vh;
+	}
+
+  .container { max-width: 800px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 40px; }
+  h1 {
+    font-weight: 700;
+    font-size: 2.3rem;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    color: white;
+  }
+  .slogan {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.35rem;
+    line-height: 1.4;
+    color: white;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .service {
+    background: var(--card-bg);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    margin-bottom: 28px;
+    overflow: hidden;
+    transition: box-shadow 0.3s, transform 0.2s;
+    border-top: 3px solid var(--primary-light);
+  }
+  .service:hover {
+    box-shadow: 0 12px 40px rgba(142, 45, 226, 0.1);
+    transform: translateY(-2px);
+  }
+  .header {
+    padding: 20px 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    font-weight: 600;
+    font-size: 1.12rem;
+    background: #fff;
+    position: relative;
+  }
+  .header-text {
+  /* при необходимости: */
+  flex: 1 1 auto; /* не обязательно, но даёт контроль при переполнении */
+  text-align: left;
+}
+  .header::after {
+    content: '⊞';
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+    margin-left: 8px;
+    flex-shrink: 0;
+    color: #477a25;
+  }
+  .header.expanded::after { transform: rotate(45deg); }
+  .price {
+    flex-shrink: 0;
+    color: var(--primary);
+    font-weight: 700;
+    white-space: nowrap;
+    font-size: 1.15rem;
+
+  }
+  .duration {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+	.description {
+	  padding: 0 24px;
+	  max-height: 0;
+	  overflow: hidden;
+	  background: #faf8fd;
+	  transition: max-height 0.4s ease, padding 0.3s ease;
+	}
+  .description-content { padding: 0 0 24px; }
+  .description.show { padding: 24px }
+  .highlight {
+    background: var(--primary-light);
+    padding: 8px 14px;
+    border-radius: 8px;
+    display: inline-block;
+    font-weight: 600;
+    margin: 10px 0;
+    font-size: 0.95rem;
+    color: black;
+  }
+  h3 {
+    font-weight: 600;
+    color: var(--text);
+    margin: 22px 0 12px;
+    font-size: 1.25rem;
+  }
+  ul { padding-left: 24px; margin: 16px 0; }
+  li { margin-bottom: 9px; }
+  .packages {
+    background: #f9f6ff;
+    padding: 16px;
+    border-radius: 10px;
+    margin: 18px 0;
+    font-weight: 500;
+    border-left: 3px solid var(--primary);
+    color: #477a25;
+  }
+  .footer-note {
+    font-size: 0.88rem;
+    color: #888;
+    margin-top: 20px;
+    font-style: italic;
+  }
+  .btn-book {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-top: 10px;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 12px rgba(142, 45, 226, 0.2);
+  }
+  .btn-book:hover {
+    background: #7a22c2;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(142, 45, 226, 0.3);
+  }
+/* === Круги с картинками и переключаемыми описаниями === */
+.image-toggle {
+  margin: 10px auto 20px;
+  text-align: center;
+  max-width: 600px;
+}
+
+.circle-container {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.circle-item {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(142, 45, 226, 0.12);
+  transition: all 0.3s ease;
+  position: relative;
+  border: 3px solid transparent;
+}
+
+.circle-item:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 28px rgba(142, 45, 226, 0.22);
+}
+
+.circle-item.active {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-light), 0 8px 24px rgba(142, 45, 226, 0.18);
+}
+
+.circle-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.circle-description {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: 
+    max-height 0.4s ease,
+    opacity 0.3s ease,
+    padding 0.3s ease;
+  margin-top: 16px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text);
+  border-top: 2px solid var(--primary-light);
+}
+
+.circle-description.show {
+  max-height: 2000px;
+  opacity: 1;
+  padding: 24px;
+}
+
+/* Адаптив */
+@media (max-width: 480px) {
+  .circle-container {
+    gap: 16px;
+  }
+  .circle-item {
+    width: 130px;
+    height: 130px;
+  }
+}
+  @media (max-width: 600px) {
+    .header { flex-direction: column; align-items: flex-start; }
+    .price { margin-top: 8px; }
+    h1 { font-size: 1.9rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>ESTHETCOLORADO</h1>
+<p style="font-size: 28px; font-family: 'Times New Roman', Times, serif;color : white">
+  Care Created for You, Not a Template
+</p>
+<p class="slogan">Personalized Skin Treatments. Premium Brands.</p>
+<p class="slogan"style="font-size: 0.95em;">Treat • Restore •Balance • Renew </p>
+    </header>
+<!-- Кружки с информацией -->
+<div class="image-toggle">
+  <div class="circle-container">
+    <div class="circle-item" data-target="desc-aveda">
+      <img src="aveda.jpg" alt="Aveda">
+    </div>
+    <div class="circle-item" data-target="desc-image">
+      <img src="image_skincare.jpg" alt="IMAGE Skincare">
+    </div>
+  </div>
+
+  <div id="desc-aveda" class="circle-description">
+    <h3>About Aveda</h3>
+    <p>Customized Aveda Facials based on the Elemental Nature Consultation and special facial techniques.<br>
+    Each Tulasara facial includes a consultation, aromatherapy, and a series of short massages.</p>
+
+    <p><strong>AVEDA</strong> is an American brand with a long-standing history and a presence in many countries worldwide. Since 1978, it has been a leader in professional cosmetics based on natural ingredients, created according to the principles of Ayurveda.</p>
+
+    <p>Aveda products are made with 95% or more natural ingredients. They contain no artificial chemicals, colors, or fragrances, yet are potent enough to deliver professional results.</p>
+
+    <p>The brand uses only the highest-quality ingredients, and all Aveda products are <strong>vegan and cruelty-free</strong>, which is important to many clients. The professional skincare line focuses not only on maintaining skin balance and care but also on addressing specific concerns such as acne and pigmentation issues.</p>
+
+    <p>Aveda is the result of careful selection, expertise, and decades of experience in the beauty industry, making it a trusted choice for both professionals and clients seeking effective, natural skincare solutions.</p>
+
+    <div class="highlight">
+      Experience the Aveda Facial — a professional spa treatment and a ceremony for the soul and body.<br>
+      Each session combines natural, vegan ingredients with proven results, tailored to your skin’s needs to balance, rejuvenate, and address concerns such as acne or pigmentation. More than just skincare, it’s a relaxing ritual that nurtures both your skin and overall well-being.
+    </div>
+  </div>
+
+  <div id="desc-image" class="circle-description">
+    <h3>About IMAGE Skincare</h3>
+    <p>Experience a true transformation with the <strong>#1 SPA brand in the USA</strong>.<br>
+    You deserve skincare that really works. Each IMAGE Skincare treatment is not just a massage or a mask — it is an intensive professional care that combines science, innovation, and genuine care for your skin.</p>
+
+    <p><strong>Brand philosophy:</strong> “clean clinical skincare” — pure, safe ingredients with proven effectiveness. Over 50,000 skincare professionals worldwide trust IMAGE Skincare for professional treatments.</p>
+
+    <h4>Why choose IMAGE Skincare treatments:</h4>
+    <ul>
+      <li><strong>Proven effectiveness:</strong> formulas are clinically tested and deliver results in addressing signs of aging, dehydration, acne, and sensitive skin</li>
+      <li><strong>Pure and safe ingredients:</strong> only what is beneficial for your skin, without harsh additives</li>
+      <li><strong>Personalized approach:</strong> product lines are tailored for every skin type and concern — from anti-aging care to post-treatment recovery</li>
+      <li><strong>Innovation and advanced technology:</strong> vitamin C, retinol, peptides, and microbiome support — everything for comprehensive and effective care</li>
+    </ul>
+
+    <div class="highlight">
+      By choosing IMAGE Skincare, you choose treatments that truly transform your skin.<br>
+      Each session is a step toward your best version: your skin becomes radiant, healthy, and beautifully cared for.
+    </div>
+  </div>
+</div>
+
+<!--
+<div class="image-toggle">
+  <div class="circle-container">
+    <div class="circle-item" data-target="desc-aveda">
+      <img src="aveda.jpg" alt="Aveda">
+    </div>
+    <div class="circle-item" data-target="desc-image">
+      <img src="image_skincare.jpg" alt="IMAGE Skincare">
+    </div>
+  </div>
+
+  <div id="desc-aveda" class="circle-description">
+    <p>About Aveda</p>
+    <p>Customized Aveda Facials based on the Elemental Nature Consultation and special facial techniques.<br>
+    Each Tulasara facial includes a consultation, aromatherapy, and a series of short massages.</p>
+    <p>AVEDA is an American brand with a long-standing history and a presence in many countries worldwide. Since 1978, it has been a leader in professional cosmetics based on natural ingredients, created according to the principles of Ayurveda.<br>
+    Aveda products are made with 95% or more natural ingredients. They contain no artificial chemicals, colors, or fragrances, yet are potent enough to deliver professional results.<br>
+    The brand uses only the highest-quality ingredients, and all Aveda products are vegan and cruelty-free, which is important to many clients. The professional skincare line focuses not only on maintaining skin balance and care but also on addressing specific concerns such as acne and pigmentation issues.<br>
+    Aveda is the result of careful selection, expertise, and decades of experience in the beauty industry, making it a trusted choice for both professionals and clients seeking effective, natural skincare solutions.</p>
+    <p>Experience the Aveda Facial — a professional spa treatment and a ceremony for the soul and body.<br>
+    Each session combines natural, vegan ingredients with proven results, tailored to your skin’s needs to balance, rejuvenate, and address concerns such as acne or pigmentation. More than just skincare, it’s a relaxing ritual that nurtures both your skin and overall well-being.</p>
+  </div>
+
+  <div id="desc-image" class="circle-description">
+    <p>About IMAGE Skincare</p>
+    <p>Experience a true transformation with the #1 SPA brand in the USA.<br>
+    You deserve skincare that really works. Each IMAGE Skincare treatment is not just a massage or a mask. It is an intensive professional care that combines science, innovation, and genuine care for your skin.</p>
+    <p>Brand philosophy: “clean clinical skincare” — pure, safe ingredients with proven effectiveness. Over 50,000 skincare professionals worldwide trust IMAGE Skincare for professional treatments.</p>
+    <p>Why choose IMAGE Skincare treatments:<br>
+     • Proven effectiveness: formulas are clinically tested and deliver results in addressing signs of aging, dehydration, acne, and sensitive skin<br>
+     • Pure and safe ingredients: only what is beneficial for your skin, without harsh additives<br>
+     • Personalized approach: product lines are tailored for every skin type and concern — from anti-aging care to post-treatment recovery<br>
+     • Innovation and advanced technology: vitamin C, retinol, peptides, and microbiome support — everything for comprehensive and effective care</p>
+    <p>By choosing IMAGE Skincare, you choose treatments that truly transform your skin. Each session is a step toward your best version: your skin becomes radiant, healthy, and beautifully cared for.</p>
+  </div>
+</div>-->
+
+<!-- AVEDA TULASARA™ SENSITIVE FACIAL -->
+<div class="service">
+  <div class="header" onclick="toggle(this)">
+    <span class="header-text">
+    AVEDA SPA TULASARA™ SENSITIVE FACIAL (90 MINS)
+	</span>
+    <span class="price">$130</span>
+  </div>
+  <div class="description">
+    <div class="description-content">
+      <p>This ultra-gentle facial thoroughly cleanses, exfoliates, and hydrates your skin while reducing irritation and redness. The Aveda Professional Cooling Masque soothes, calms, and balances even the most sensitive skin. Highly beneficial for those who need an extra-gentle touch.</p>
+      <div class="highlight">
+      <h3>Immediate Effects</h3>
+      <ul>
+        <li>Improved skin hydration and radiance</li>
+        <li>Reduced skin redness</li>
+      </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- AVEDA TULASARA™ DRY FACIAL -->
+<div class="service">
+  <div class="header" onclick="toggle(this)">
+      <span class="header-text">
+    AVEDA SPA TULASARA™ DRY FACIAL (90 MINS)
+		</span>
+    <span class="price">$130</span>
+
+  </div>
+  <div class="description">
+    <div class="description-content">
+      <p>Revive dry, dehydrated skin with this intensely moisturizing facial. Gentle dry brushing and additional exfoliation help your skin absorb ultra-hydrating masks and creams, providing deep nourishment and a radiant glow.</p>
+
+      <div class="highlight">
+      <ul>
+ <li>Improved skin hydration and radiance</li>
+ <li>Reduced skin redness</li>
+ <li>Noticeably smoother skin within 24 hours</li>
+      </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- AVEDA TULASARA™ OILY FACIAL -->
+<div class="service">
+  <div class="header" onclick="toggle(this)">
+      <span class="header-text">
+    AVEDA SPA TULASARA™ OILY FACIAL (90 MINS)
+	</span>
+    <span class="price">$130</span>
+  </div>
+  <div class="description">
+    <div class="description-content">
+      <p>Ideal for oily or combination skin, this facial helps restore balance by reducing excess oil, unclogging pores, minimizing their appearance, and calming visible redness. Within 24 hours, your skin will appear smoother and healthier.</p>
+
+      <div class="highlight">
+      <h3>Immediate Effects</h3>
+      <ul>
+        <li>Reduced surface sebum</li>
+        <li>Fewer clogged pores</li>
+        <li>Minimized pore size</li>
+        <li>Smoother skin texture within 24 hours</li>
+      </ul>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- AVEDA TULASARA™ TEEN FACIAL -->
+<div class="service">
+  <div class="header" onclick="toggle(this)">
+      <span class="header-text">
+    AVEDA SPA TULASARA™ TEEN FACIAL (90 MINS)
+	</span>
+    <span class="price">$140</span>
+  </div>
+  <div class="description">
+    <div class="description-content">
+      <p>Designed specifically for teenagers aged 14–18, this acne-fighting facial includes cleansing, toning, and gentle extractions, followed by a customized masque tailored to your skin type.</p>
+
+      <div class="highlight">
+      <h3>Immediate Effects</h3>
+      <ul>
+        <li>Reduced surface sebum</li>
+        <li>Fewer clogged pores</li>
+        <li>Minimized pore size</li>
+        <li>Reduced redness</li>
+        <li>Smoother skin texture within 24 hours</li>
+      </ul>
+      </div>
+
+
+
+      <p class="footer-note">*Some skin types may require additional extraction time. If extra time is needed, please indicate this when booking. Additional extraction time adds 15 minutes to the service and incurs a $10+ fee.<br>*All contraindications assessed during consultation.</p>
+    </div>
+  </div>
+</div>
+
+<!-- AVEDA ACNE FACIAL -->
+<div class="service">
+  <div class="header" onclick="toggle(this)">
+      <span class="header-text">
+    AVEDA SPA ACNE FACIAL w/ Extractions or Ultrasonic (90 MINS)
+	</span>
+    <span class="price">$145</span>
+  </div>
+  <div class="description">
+    <div class="description-content">
+      <p>Deeply cleanse your skin with a focus on exfoliation, extractions, and steaming to bring debris from pores to the surface. This leaves your skin clearer, less irritated, and better able to heal itself. This specialized protocol includes a step with salicylic acid, which reduces inflammation, decreases redness and swelling, provides antibacterial action, and promotes rapid healing of acne.</p>
+
+      <div class="highlight">
+      <h3>Immediate Effects</h3>
+      <ul>
+        <li>Reduced surface sebum</li>
+        <li>Fewer clogged pores</li>
+        <li>Minimized pore size</li>
+        <li>Reduced skin redness</li>
+        <li>Smoother skin texture within 24 hours</li>
+      </ul>
+      </div>
+
+
+
+      <p class="footer-note">*Some skin types may require additional extraction time. If extra time is needed, please indicate this when booking. Additional extraction time adds 15 minutes to the service and incurs a $10+ fee.<br>*All contraindications assessed during consultation.</p>
+    </div>
+  </div>
+</div>
+
+<!-- AVEDA DUAL EXFOLIATION PEEL -->
+<div class="service">
+  <div class="header" onclick="toggle(this)">
+      <span class="header-text">
+    AVEDA SPA DUAL EXFOLIATION PEEL TREATMENT(90 MINS)
+	</span>
+    <span class="price">$150</span>
+  </div>
+  <div class="description">
+    <div class="description-content">
+      <p><strong>Type: Dual-action enzyme-acid peel (chemical + mechanical exfoliation)</strong><br> 
+Enzymes and plant-based acids (AHA, fruit acids) act on the proteins and bonds between epidermal cells, gently removing dead skin cells.<br>
+The Dual Exfoliation Treatment is a non-invasive, skin-renewing service that combines Aveda’s naturally derived mechanical and biochemical exfoliation methods into one powerful treatment. This dual approach transforms the skin, improving texture, clarity, and radiance, smoothing the appearance of fine lines and wrinkles, and refining pores for fresher, younger-looking skin. You will see immediate, visible results after just one session. Experience the rejuvenating power of plants and minerals to help your skin look and feel its best.</p>
+
+      <div class="highlight">
+      <h3>Immediate Effects</h3>
+      <ul>
+        <li>Improved skin texture and clarity</li>
+        <li>Enhanced radiance</li>
+        <li>Smoothed appearance of fine lines and wrinkles</li>
+        <li>Refined pores</li>
+        <li>Fresher, younger-looking skin</li>
+      </ul>
+
+      </div>
+
+<p>Clinical Study:<br>
+The Dual Exfoliation Peel achieved better results than a combined microdermabrasion/30% glycolic peel in both immediate smoothness and radiance, with significantly better outcomes in smoothness, radiance, and skin tone one week later.</p>
+
+      <p class="footer-note">*All contraindications and treatment restrictions are assessed and reviewed during your personalized consultation.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PREMIUM DUAL EXFOLIATION PEEL -->
+<div class="service">
+  <div class="header" onclick="toggle(this)">
+      <span class="header-text">
+    PREMIUM AVEDA DUAL EXFOLIATION PEEL (120 MINS)
+	</span>
+    <span class="price">$185</span>
+  </div>
+  <div class="description">
+    <div class="description-content">
+      <p>All benefits of the 90-minute dual exfoliation peel, with added relaxation and targeted massage, aromatherapy, and candles. 
+Includes a massage of the neck and shoulder area, hands, feet, or scalp. 
+Double benefits in a single session. This treatment not only cares for your facial skin but also provides a wonderful opportunity to relax, boost circulation, and restore your energy balance.</p>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- GLOW-PERFECTING PLANT PEEL -->
+<div class="service">
+  <div class="header" onclick="toggle(this)">
+      <span class="header-text">
+    GLOW-PERFECTING PLANT PEEL (30 MINS)
+	</span>
+    <span class="price">$40</span>
+  </div>
+  <div class="description">
+    <div class="description-content">
+      <p>This facial masque warms the skin to open pores, actively smoothing and re-texturizing the skin. It provides the instant radiance and exfoliation benefits of a 30% glycolic peel naturally, without the associated redness or irritation.</p>
+    </div>
+  </div>
+</div>
+
+<!-- O2LIFT FACIAL -->
+<div class="service">
+  <div class="header" onclick="toggle(this)">
+      <span class="header-text">
+    O₂LIFT FACIAL by IMAGE Skincare (60 MINS)
+	</span>
+    <span class="price">$110</span>
+  </div>
+  <div class="description">
+    <div class="description-content">
+      <p>Red Carpet Treatment.<br>
+A treatment that gets your skin event-ready — smoothing, brightening, and perfecting your complexion so you can shine with confidence, just like the stars on the red carpet.<br>
+
+
+<strong>Type: Enzyme‑acid</strong><br>
+Luxurious oxygenating facial (Oxygenating peel) that refreshes and revitalizes for a radiant, luminous appearance. Purifies clogged pores, enhances clarity, and brightens skin. Effervescent masque bubbles on contact to illuminate, while minerals smooth texture and reduce fine lines by boosting oxygen availability.</p>
+
+      <div class="highlight">
+      <h3>Immediate Effects</h3>
+      <ul>
+        <li>Brighter, clearer skin</li>
+        <li>Smoother texture</li>
+        <li>Reduced appearance of fine lines</li>
+        <li>Radiant, luminous glow</li>
+      </ul>
+      </div>
+
+
+
+      <p class="footer-note">*All contraindications and treatment restrictions are assessed and reviewed during your personalized consultation.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ACNE PROFESSIONAL LIFT -->
+<div class="service">
+  <div class="header" onclick="toggle(this)">
+      <span class="header-text">
+    ACNE PROFESSIONAL LIFT by IMAGE Skincare (75 MINS)
+	</span>
+    <span class="price">$160</span>
+  </div>
+  <div class="description">
+    <div class="description-content">
+      <p><strong>Type: Chemical</strong><br>
+High-performance acne solution. AHA and BHA in an aloe vera gel deeply cleanse pores, soothe breakouts, and improve skin texture. Ideal for oily and problematic skin. 
+</p>
+
+      <div class="highlight">
+      <h3>Benefits</h3>
+      <ul>
+        <li>Deeply cleans pores and reduces buildup</li>
+        <li>Calms acne breakouts and fades post-acne marks</li>
+        <li>Smooths skin texture and refines pores</li>
+      </ul>
+      </div>
+
+<p><strong>Ideal for:</strong> oily, congested, or acne-prone skin (grades I–II)</p>
+
+
+      <p class="footer-note">*All contraindications and treatment restrictions are assessed and reviewed during your personalized consultation.</p>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- PRX-T33 -->
+    <div class="service">
+      <div class="header" onclick="toggle(this)">
+	      <span class="header-text">
+        PRX-T33 Collagen Remodeling (post-kit included)
+		</span>
+        <span class="price">$260/session </span>
+      </div>
+      <div class="description">
+        <div class="description-content">
+          <p>Revolutionizing Aesthetics Through Technology and Skin Science from Italy</p><br>
+          <p>The PRX-T33  non-injectable biorevitalizer that induce dermal bio-stimulation without involving exfoliation of the epidermis. It helps to strengthen the radiance and brightness of the skin, correct skin imperfections of the skin and reduce stretch marks. The biorevitalization peel is indicated for patients who want to obtain the result of a TCA peel without its side effects while benefiting from the plumping effect permitted by mesotherapy.</p>
+          
+          <div class="highlight">
+          <ul>
+  <li>100% Needle-Free Procedure</li>
+  <li>Painless with No Discomfort</li>
+  <li>Zero Downtime or Recovery</li>
+  <li>Non-Photosensitizing : Safe for Summer</li>
+  <li>Quick, Convenient 20-25 min Session</li>
+  <li>Provides Immediate, Palpable Firming</li>
+          </ul>
+          </div>
+<p>Safe for All Skin Types and Seasons<br>
+PRX-T33 works beneath the skin’s surface without causing peeling or flaking, making it safe for all Fitzpatrick skin types I–IV and suitable for year-round treatment. Whether you’re looking for a winter refresh or a summer glow, PRX-T33 delivers stunning results safely — even during sun-exposed months.
+This innovative treatment effectively addresses a variety of skin concerns, including:<br>
+ • Skin laxity: Firms and lifts sagging skin on the face, neck, décolletage, and body<br>
+ • Fine lines and wrinkles: Smooths out lines and restores a more youthful appearance<br>
+ • Stretch marks: Reduces the visibility of both new and older stretch marks<br>
+ • Scars: Improves the appearance of recent depressed scars, including those from acne or chickenpox<br>
+ • Photoaging and dull skin: Reverses sun damage, brightens tone, and restores skin radiance<br>
+ • Hypotonic (thin, aging) skin: Strengthens and improves density, particularly in delicate areas like the breasts</p>
+
+          <h3>Who Can Benefit from PRX-T33?</h3>
+          <ul>
+<p>PRX-T33 is for everyone — men and women, all ages and skin types. It revitalizes, smooths, and restores your skin at every stage of life:</p>
+            <li>Teens: Smooths acne scars and refines texture</li>
+            <li>20s: Keeps skin clear, hydrated, and radiant</li>
+            <li>30s–40s: Prevents fine lines, boosts firmness, and supports collagen</li>
+            <li>50s+: Reduces wrinkles, restores elasticity, and evens skin tone</li>
+          </ul>
+
+          <h3>Indications and Standard Treatment Duration:</h3>
+          <ul>
+            <li>Prevention and correction of photoaging and chronological aging: 4–8 sessions</li>
+            <li>Atrophic scars and post-acne marks: 10+ sessions in monotherapy, or 4–8 sessions when combined with microneedling</li>
+            <li>Hyperpigmentation: 6–8 sessions</li>
+            <li>Reactive/sensitive skin: 4–5 sessions</li>
+          </ul>
+
+<p>Recommended Treatment Frequency:
+Once every 7–10 days during the course.
+Available treatment packages: 4, 6, and 8 sessions. </p>
+
+
+          <div class="packages">
+            🎁 <strong>Package of 4 sessions: $950</strong> (post-kit included)
+          </div>
+
+          <p class="footer-note">*All contraindications and treatment restrictions are assessed and reviewed during your personalized consultation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diamond Tip Microdermabrasion -->
+
+    <div class="service">
+      <div class="header" onclick="toggle(this)">
+	      <span class="header-text">
+        Diamond Tip Microdermabrasion <i style="font-size: 0.9em">(+ mini facial afterward)</i> (60 MINS)
+		</span>
+        <span class="price"><i style="font-size: 0.8em">from</i>  $130</span>
+      </div>
+      <div class="description">
+        <div class="description-content">
+          <p>A microdermabrasion treatment with fine crystals gently removes the top layer of dead and damaged skin cells and vacuums them away.
+It’s a well-tolerated skin rejuvenation procedure that can help even out pigment and discoloration, tackle sun damage, brighten dull skin, and diminish the appearance of mild acne, fine lines, and age spots.
+The result is brighter, more even-toned skin that has a smoother texture. It also improves the performance of your skin-care regimen by allowing products to penetrate the skin more easily.
+</p>
+          <div class="highlight">
+          <ul>
+            <li>Improves skin texture and smoothness</li>
+            <li>Enhances skin radiance and brightness</li>
+            <li>Reducing wrinkles and fine lines</li>
+            <li>Minimizes mild acne scars and hyperpigmentation</li>
+            <li>Stimulates collagen production for firmer skin</li>
+            <li>Helps unclog pores and reduce blackheads</li>
+            <li>Allows better absorption of skincare products</li>
+            <li>Provides a non-invasive alternative to more intensive treatments</li>
+            <li>Minimal risk for most skin types</li>
+            <li>Requires little to no downtime for recovery</li>
+          </ul>
+	</div>
+          <div class="packages">
+            🎁 Packages of 3 and 6 treatments are available.
+          </div>
+
+          <p class="footer-note">*All contraindications and treatment restrictions are assessed and reviewed during your personalized consultation</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MicroPeel Facial -->
+    <div class="service">
+      <div class="header" onclick="toggle(this)">
+	      <span class="header-text">
+        MicroPeel Facial based on Aveda  (75 MINS)
+		</span>
+        <span class="price"><i style="font-size: 0.9em">from</i> $160</span>
+      </div>
+      <div class="description">
+        <div class="description-content">
+          <p>A combination of Microdermabrasion and the Aveda Perfecting Plant Peel provides deeper exfoliation, delivering faster results in reducing the appearance of fine lines and wrinkles, acne, acne scars hyperpigmentation, and dark spots from sun damage. It also significantly improves skin  texture and clarity. </p>
+
+          <p class="footer-note">*All contraindications and treatment restrictions are assessed and reviewed during your personalized consultation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dermaplaning -->
+    <div class="service">
+      <div class="header" onclick="toggle(this)">
+	      <span class="header-text">
+        Dermaplaning <i style="font-size: 0.9em">(+ mini facial afterward)</i>  (60 MINS)
+		</span>
+        <span class="price"><i style="font-size: 0.9em">from</i> $80</span>
+      </div>
+      <div class="description">
+        <div class="description-content">
+          <p>Dermaplaning is a professional form of mechanical exfoliation performed with a sterile surgical blade to gently remove dead skin cells and fine vellus hair. The treatment is done on dry skin, is safe when performed by a trained professional, and delivers an immediate result of smoother, brighter, more refined skin.</p>
+          <div class="highlight">
+          <h3>Why is it performed?<br>
+</h3>
+          <ul>
+		  <i style="font-size: 1.2em;color=black">Dermaplaning helps to:</i>
+            <li>Improve overall skin tone and texture</li>
+            <li>Enhance the penetration of active ingredients</li>
+            <li>Create a flawlessly smooth base for makeup</li>
+            <li>Promote more even cellular turnover</li>
+            <li>Boost the effectiveness of subsequent skincare treatments</li>
+          </ul>
+</div>
+          <h3>Indications:</h3>
+          <ul>
+            <li>Dull or lackluster complexion</li>
+            <li>Uneven skin texture</li>
+            <li>Superficial hyperpigmentation</li>
+            <li>Mild post-acne marks</li>
+            <li>Thickened stratum corneum</li>
+            <li>Presence of fine vellus hair</li>
+            <li>Preparation for chemical peels or advanced treatments.</li>
+          </ul>
+
+          <p><strong>Recommended frequency:</strong> every 3–4 weeks</p>
+		  <p>Dermaplaning is typically performed every 3–4 weeks to align with the skin’s natural cell turnover cycle.</p>
+          <p class="footer-note">*All contraindications and treatment restrictions are assessed and reviewed during your personalized consultation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Microneedling -->
+    <div class="service">
+      <div class="header" onclick="toggle(this)">
+	      <span class="header-text">
+        Microneedling <i style="font-size: 0.9em">(+ mini facial afterward)</i>  (60 MINS)
+		</span>
+        <span class="price"><i style="font-size: 0.9em">from</i> $185</span>
+      </div>
+      <div class="description">
+        <div class="description-content">
+          <p>Microneedling at Esthetcolorado is a minimally invasive, clinically proven treatment designed to rejuvenate the skin and improve its overall quality.<br>
+
+During the procedure, a dermapen creates precise micro-channels in the skin. These controlled micro-injuries activate the skin’s natural repair mechanisms, leading to:</p>
+
+          <h3>Stimulates Collagen & Elastin Production</h3>
+          <ul>
+            <li>Firms and tightens the skin</li>
+            <li>Reduces fine lines and wrinkles</li>
+            <li>Improves skin elasticity and overall youthfulness</li>
+          </ul>
+
+          <h3>Reduces Scars & Hyperpigmentation</h3>
+          <ul>
+            <li>Fades acne, surgical, and post-inflammatory scars</li>
+            <li>Evens out skin tone and diminishes dark spots</li>
+          </ul>
+
+          <h3>Improves Skin Texture & Minimizes Pores</h3>
+          <ul>
+            <li>Smooths rough or uneven skin</li>
+            <li>Reduces enlarged pores</li>
+            <li>Enhances overall skin radiance and clarity</li>
+          </ul>
+
+          <h3>Enhances Product Absorption</h3>
+          <ul>
+            <li>Increases penetration of serums and active ingredients</li>
+            <li>Boosts effectiveness of professional skincare treatments</li>
+          </ul>
+
+          <h3>Treats Stretch Marks & Sun Damage</h3>
+          <ul>
+            <li>Reduces the appearance of stretch marks</li>
+            <li>Repairs and rejuvenates sun-damaged skin</li>
+          </ul>
+
+          <h3>Treats Stretch Marks & Sun Damage</h3>
+          <ul>
+            <li>Reduces the appearance of stretch marks</li>
+            <li>Repairs and rejuvenates sun-damaged skin</li>
+          </ul>
+
+          <div class="highlight">
+
+          <h3>What Microneedling Treats</h3>
+          <ul>
+            <li><strong>Fine lines & wrinkles</strong> – stimulates collagen to reduce visible signs of aging</li>
+            <li><strong>Acne scars</strong> – smooths skin and breaks down scar tissue</li>
+            <li><strong>Hyperpigmentation & dark spots</strong> – evens skin tone and diminishes discoloration</li>
+            <li><strong>Enlarged pores</strong> – tightens pores and improves skin texture</li>
+            <li><strong>Stretch marks</strong> – promotes skin regeneration to fade marks</li>
+            <li><strong>Sun damage</strong> – restores healthy texture and reduces pigmentation</li>
+            <li><strong>Uneven skin texture</strong> – smooths rough or bumpy areas</li>
+            <li><strong>Hair thinning</strong> – can stimulate hair growth when combined with targeted serums</li>
+          </ul>
+
+</div>
+
+          <h3>Why clients choose microneedling:</h3>
+          <ul>
+            <li>Suitable for all skin types</li>
+            <li>Minimal downtime with quick recovery</li>
+            <li>Natural stimulation without injections or aggressive resurfacing</li>
+            <li>Cumulative, long-lasting results when performed as a series</li>
+          </ul>
+
+
+<h3>Advanced combinations for enhanced outcomes:</h3>
+
+<p>Microneedling pairs exceptionally well with LED therapy, mesotherapy, PRP, and targeted professional serums, allowing for a customized, results-driven treatment plan.</p><br>
+
+<p>Recommended interval between treatments is 3-4 weeks. Depending on skin condition and type, the interval may vary.</p>
+
+          <div class="packages">
+            🎁 Packages of 4 and 6 treatments are available.
+          </div>
+          <p class="footer-note">*All contraindications and treatment restrictions are assessed and reviewed during your personalized consultation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Microneedling with Serum Infusion -->
+    <div class="service">
+      <div class="header" onclick="toggle(this)">
+	      <span class="header-text">
+        Microneedling with Serum Infusion (75 MINS)
+		</span>
+        <span class="price"><i style="font-size: 0.9em">from</i>  $225</span>
+      </div>
+      <div class="description">
+        <div class="description-content">
+          <p>Microneedling with Serum Infusion is a minimally invasive procedure that creates controlled microchannels in the skin, stimulating natural regeneration processes. At the same time, active serums are delivered deep into the skin, improving tone, texture, hydration, and addressing individual concerns such as signs of aging, pigmentation, and acne.</p><br>
+          <p><strong style="font-size:18px">Microneedling with Serum Infusion is the perfect treatment with a personalized approach</strong>, and here’s why:
+</p>
+          <p> 1. Targeted Action – Serums are chosen for specific needs: hydration, lifting, brightening, acne reduction, or hair growth. Each area receives ingredients where needed.</p>
+          <p> 2. Natural Stimulation – Micropunctures boost collagen and elastin, helping skin restore and renew itself.</p>
+          <p> 3. Deep Penetration – Serums penetrate deeper for maximum effectiveness.</p>
+          <p> 4. Minimal Trauma – Minimally invasive, short downtime, suitable for all skin types.</p>
+          <p> 5. Personalized Protocols – Treatments are tailored in intensity, serums, and duration to skin condition, age, and goals.</p>
+<p style="font-size: 1.15rem; color: #477a25; font-weight: 500;">
+  The procedures are performed with serums from a European brand specializing in high-quality mesotherapy serums and devices for injection treatments. Manufactured according to ISO production standards and GMP regulations.
+</p>
+          <h3>Microneedling + F-XFC</h3>
+          <ul>
+<p><strong>Indications:</strong></p>
+            <li>Skin revitalization and cellular nutrition</li>
+            <li>Prevention and reduction of signs of aging</li>
+          </ul>
+          <h3>Microneedling + F-LIFT + FACE</h3>
+          <ul>
+<p><strong>Indications:</strong></p>
+            <li>Lifts and firms the skin</li>
+            <li>Reduces deep wrinkles and fine lines</li>
+            <li>Restores facial volume</li>
+            <li>Improves overall skin tone</li>
+          </ul>
+          <h3>Microneedling + F-RADIANCE</h3>
+          <ul>
+<p><strong>Indications:</strong></p>
+            <li>Treatment for melasma and hyperpigmentation</li>
+            <li>Reduces brown spots and evens skin tone</li>
+          </ul>
+          <h3>Microneedling + F-ACN</h3>
+          <ul>
+<p><strong>Indications:</strong></p>
+            <li>Reduces acne and controls oily skin</li>
+            <li>Minimizes open pores</li>
+            <li>Reduces redness and inflammation</li>
+          </ul>
+          <h3>Microneedling + F-HAIR</h3>
+          <ul>
+<p><strong>Indications:</strong></p>
+            <li>Revitalizes and strengthens hair</li>
+            <li>Addresses thinning hair and hair loss due to stress, nutritional deficiencies, hormonal changes, medications, or external factors.</li>
+          </ul>
+
+<p>EACH TREATMENT HAS ITS OWN PROTOCOL AND DURATION. </p>
+
+
+          <div class="packages">
+            🎁 Packages of 3 and 6 treatments are available.
+          </div>
+          <p class="footer-note">*All contraindications and treatment restrictions are assessed and reviewed during your personalized consultation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Microneedling PRX -->
+
+    <div class="service">
+      <div class="header" onclick="toggle(this)">
+	      <span class="header-text">
+        Microneedling PRX (75 MINS)
+		</span>
+        <span class="price">$390</span>
+      </div>
+      <div class="description">
+        <div class="description-content">
+          <p><strong style="font-size:18px">Experience results no single treatment can achieve: Dermapen Microneedling with PRX-T33.</strong><br>
+Microneedling and PRX-T33 are separate skin rejuvenation techniques that can be used individually or in combination.</p><br>
+
+<p><strong style="font-size:18px">What is the procedure?</strong><br>
+Microneedling PLUS PRX-T33 combines two powerful methods: controlled microchannels in the skin (microneedling) and the application of PRX-T33, a unique needle-free biorevitalizing peel. Together, they stimulate the skin’s natural regeneration processes, improving its condition at the cellular level.</p>
+
+          <h3>Key Effects</h3>
+          <ol>
+            <li><strong>Collagen and Elastin Stimulation</strong><br>
+• Micropunctures activate collagen and elastin production<br>
+• The skin becomes firmer, denser, and more youthful
+</li>
+            <li><strong>Intense Hydration and Restoration</strong> <br>
+• PRX-T33 deeply hydrates and restores the dermis without aggressive epidermal damage<br>
+ • Skin barrier function and protective properties are improved
+</li>
+            <li><strong>Tone and Texture Improvement</strong> <br>
+ • Fine lines are reduced, skin smoothness and density improve<br>
+ • Post-acne marks and minor pigmentation become less noticeable
+</li>
+            <li><strong>Minimal Trauma</strong> <br>
+• The procedure is safe and suitable for all skin types<br>
+ • No significant peeling or long downtime is required
+</li>
+            <li><strong>Enhanced Active Ingredient Penetration</strong> <br>
+ • Micropunctures enhance the absorption of PRX-T33 and other products<br>
+ • Results are visible after the first sessions, and a course of 3–5 treatments ensures long-lasting effects
+</li>
+          </ol>
+
+          <h3>How many sessions are needed to achieve results?</h3>
+          <ul>
+<p>The number of sessions depends on the specific skin concern:</p>
+            <li>Acne scars – 3–5 sessions every 21 days, followed by another 2–5 weekly sessions after 3–4 months if needed</li>
+            <li>Dilated pores – 3–5 sessions every 14 days, with a second cycle of 2–3 sessions after 4–6 months</li>
+            <li>General rejuvenation – 3–5 sessions at weekly intervals</li>
+            <li>Uneven skin texture – 5 sessions, spaced 15 days apart</li>
+            <li>Stretch marks – 6 sessions with intervals of 7–15 days, followed by a repeat course of 5 sessions after 2–4 months</li>
+          </ul>
+
+          <p class="footer-note">*All contraindications and treatment restrictions are assessed and reviewed during your personalized consultation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- OxyTherapy -->
+    <div class="service">
+      <div class="header" onclick="toggle(this)">
+	      <span class="header-text">
+        OxyTherapy Facial with Serum (60 MINS)
+		</span>
+        <span class="price"><i style="font-size: 0.9em">from</i> $100</span>
+        <div class="duration"></div>
+      </div>
+      <div class="description">
+        <div class="description-content">
+          <p>OxyTherapy with Serum is an advanced cosmetic treatment that combines pressurized oxygen delivery with targeted serum infusion to enhance skin health and appearance.
+</p>
+
+          <h3>How OxyTherapy with Serum Works</h3>
+          <ol>
+            <li><strong>Pressurized Oxygen Delivery</strong><br>
+• A device with a specialized nozzle directs a controlled flow of oxygen onto the skin’s surface
+</li>
+            <li><strong>Cellular Oxygenation</strong> <br>
+ • Oxygen enhances microcirculation, stimulating the skin’s natural regeneration and renewal processes
+</li>
+            <li><strong>Deep Serum Infusion</strong> <br>
+ • Active serum ingredients penetrate deeper with the oxygen flow, providing nourishment, hydration, lifting, and tone improvement
+</li>
+            <li><strong>Gentle Massage Effect</strong> <br>
+ • The oxygen flow also promotes metabolic processes and lymphatic drainage, improving firmness and radiance
+</li>
+
+          </ol>
+
+          <h3>Key Benefits:</h3>
+          <ul>
+ • <strong>Deep hydration and nourishment</strong> – revitalizes and replenishes the skin<br>
+ • <strong>Cellular oxygenation</strong> – stimulates natural regeneration processes<br>
+ • <strong>Improved skin tone and texture</strong> – reduces fine lines and smooths uneven areas<br>
+ • <strong>Enhanced firmness and radiance</strong> – boosts skin elasticity and luminosity<br>
+ • <strong>Optimized serum absorption</strong> – active ingredients penetrate deeper, maximizing effectiveness
+          </ul>
+
+          <p>This non-invasive, painless treatment is suitable for all skin types, including sensitive skin, providing immediate and visible results without downtime.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add-Ons -->
+    <div class="service">
+      <div class="header" onclick="toggle(this)">
+	      <span class="header-text">
+        Facial Add On's
+		</span>
+        <span class="price"><i style="font-size: 0.9em">from</i> $15</span>
+      </div>
+      <div class="description">
+        <div class="description-content">
+          <ul>
+            <li><strong>NuFACE Microcurrent</strong> (20 MINS) — $35<br>
+              Gentle electrical currents tone facial muscles, boost collagen, and lift your skin for firmer, sculpted contours.
+</li>
+            <li><strong>LED Light Therapy</strong> (15 MINS) — $15<br>
+              Non-invasive light therapy stimulates collagen, reduces inflammation, and promotes healing and glowing skin.</li>
+            <li><strong>Aveda Eye Treatment</strong> (15 MINS) — $20<br>
+              Focusing on the delicate eye area, this treatment hydrates and relaxes stressed eyes while reducing puffiness, dark circles, and fine lines.</li>
+          </ul>
+    <p style="text-align: center; margin-top: 40px; color: #777; font-size: 0.95rem;">
+      More treatments coming soon.</p>
+        </div>
+      </div>
+    </div>
+
+<p style = "text-align: center; color:white; font-size:24px; font-weight:bold">Free consultations.</p>
+<p style = "text-align: center;color:white;font-size:24px; font-weight:bold">Promotions.</p>
+<p style = "text-align: center;color:white;font-size:24px; font-weight:bold">Special offers for loyal clients.</p>
+
+    <p style="text-align: center; margin-top: 40px; color: white; font-size: 0.95rem;">
+      ESTHETCOLORADO — science-backed beauty, personalized for you.
+    </p>
+
+<script>
+document.querySelectorAll('.circle-item').forEach(item => {
+  item.addEventListener('click', function() {
+    const targetId = this.dataset.target;
+    const targetDesc = document.getElementById(targetId);
+    const isActive = this.classList.contains('active');
+    
+    // Снимаем активность со всех
+    document.querySelectorAll('.circle-item').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.circle-description').forEach(el => el.classList.remove('show'));
+    
+    // Если НЕ активен — открываем
+    if (!isActive) {
+      this.classList.add('active');
+      targetDesc.classList.add('show');
+    }
+    // Если был активен — остаёмся без описания (уже сняли .show выше)
+  });
+});
+</script>
+
+  <script>
+function toggle(el) {
+  const desc = el.nextElementSibling;
+  const content = desc.querySelector('.description-content');
+  const wasExpanded = el.classList.contains('expanded');
+
+  // Свернуть все
+  document.querySelectorAll('.header').forEach(h => h.classList.remove('expanded'));
+  document.querySelectorAll('.description').forEach(d => {
+    d.style.maxHeight = '0';
+    d.classList.remove('show');
+  });
+
+  // Раскрыть текущий (если не был открыт)
+  if (!wasExpanded) {
+    el.classList.add('expanded');
+    desc.classList.add('show');
+
+    // Динамически вычислить высоту контента
+    const height = content.scrollHeight + 48; // +48 — учёт верхнего/нижнего padding (24+24)
+    desc.style.maxHeight = height + 'px';
+  }
+}
+	
+  </script>
+<div style="text-align: center; margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 16px;">
+<div style="text-align: center; margin-top: 5px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+  <!-- iMessage -->
+  <a href="sms:+17208128189" 
+     style="display: inline-flex; align-items: center; justify-content: center; 
+            background: #0088ff; color: white; padding: 14px 24px; 
+            border-radius: 10px; text-decoration: none; font-weight: 600; 
+            gap: 8px; box-shadow: 0 4px 12px rgba(0, 136, 255, 0.2); 
+            transition: transform 0.2s, background 0.3s;">
+    <img src="imessage_icon.png" alt="iMessage" width="25" height="25" style="display: block;">
+    iMessage
+  </a>
+
+  <!-- Instagram -->
+  <a href="https://www.instagram.com/esthetcolorado/" 
+     style="display: inline-flex; align-items: center; justify-content: center; 
+            background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045); 
+            color: white; padding: 14px 24px; border-radius: 10px; 
+            text-decoration: none; font-weight: 600; gap: 8px; 
+            box-shadow: 0 4px 12px rgba(142, 45, 226, 0.2); 
+            transition: transform 0.2s;">
+    <img src="Instagram_icon.svg" alt="Instagram" width="20" height="20" style="display: block;">
+    Instagram
+  </a>
+  </div>
+<div style="text-align: center; margin-top: 5px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+
+  <!-- Phone -->
+  <a href="tel:+17208128189"
+     style="display: inline-flex; align-items: center; justify-content: center; 
+            background: #4CAF50; color: white; padding: 14px 24px; 
+            border-radius: 10px; text-decoration: none; font-weight: 600; 
+            gap: 8px; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2); 
+            transition: transform 0.2s, background 0.3s;">
+    <img src="phone_icon.svg" alt="Phone" width="20" height="20" style="display: block;">
+	+1 720 812 8189
+  </a>
+
+  <!-- Address (Google Maps) -->
+  <a href="https://maps.app.goo.gl/z1YPzvjMHSRUhkGM8"
+     target="_blank"
+     style="display: inline-flex; align-items: center; justify-content: center; 
+            background: #E53935; color: white; padding: 14px 24px; 
+            border-radius: 10px; text-decoration: none; font-weight: 600; 
+            gap: 8px; box-shadow: 0 4px 12px rgba(229, 57, 53, 0.2); 
+            transition: transform 0.2s, background 0.3s;">
+    <img src="map_icon.svg" alt="Address" width="30" height="30" style="display: block;">
+    8811 E Hampden Ave, Denver, CO 80231<br> Suite #200 (2nd floor) 
+  </a>
+  </div>
+</div>
+</body>
+
+</html>
