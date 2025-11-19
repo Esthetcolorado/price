@@ -4,7 +4,7 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>EsthetColorado — Услуги</title>
+  <title>ESTHETCOLORADO — services</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
   
 <style>
   :root {
-    --primary: #477a25;        /* Фиолетовый акцент */
+    --primary: #477a25;        /* Зелёный акцент */
     --primary-light:  #fcf9fe;
     --text: black;
     --text-light: #666;
@@ -182,8 +182,8 @@
 }
 
 .circle-item {
-  width: 100px;
-  height: 100px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   overflow: hidden;
   cursor: pointer;
@@ -234,14 +234,82 @@
   padding: 24px;
 }
 
+/* === Подсказка под кружками с красивыми SVG-стрелками вверх === */
+.hint-below {
+  text-align: center;
+  margin-top: 16px;
+  position: relative;
+}
+
+.hint-message {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.arrows-up {
+  display: flex;
+  justify-content: center;
+  position: relative;
+     gap: 20px;
+  height: 60px; /* высота, чтобы стрелки были чуть выше текста */
+}
+
+.arrow-up {
+  width: 60px;
+  height: 60px;
+   gap: 48px; /* расстояние между стрелками */
+  opacity: 0.7;
+  cursor: default;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  flex-shrink: 0;
+    /* Основной приём: сдвигаем стрелку ВВЕРХ относительно родителя */
+  transform: translateY(-6px);
+}
+}
+
+.arrow-up:hover {
+  opacity: 1;
+  transform: translateY(-4px); /* стрелка слегка поднимается при наведении */
+}
+
+/* Сдвигаем стрелки ближе к кружкам */
+.arrow-left {
+  color: white;
+  margin-left: -48px;
+  
+}
+
+.arrow-right {
+  color: white;
+  margin-right: -48px;
+}
+
+/* При наведении на стрелку — подсвечиваем кружок */
+.arrow-left:hover ~ .circle-container .circle-item[data-target="desc-aveda"],
+.circle-item[data-target="desc-aveda"]:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 4px var(--primary-light), 0 10px 30px rgba(142, 45, 226, 0.2);
+}
+
+.arrow-right:hover ~ .circle-container .circle-item[data-target="desc-image"],
+.circle-item[data-target="desc-image"]:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 4px var(--primary-light), 0 10px 30px rgba(142, 45, 226, 0.2);
+}
+
+
+
 /* Адаптив */
 @media (max-width: 480px) {
   .circle-container {
-    gap: 16px;
+    gap: 30px;
   }
   .circle-item {
-    width: 130px;
-    height: 130px;
+    width: 140px;
+    height: 140px;
   }
 }
   @media (max-width: 600px) {
@@ -249,6 +317,17 @@
     .price { margin-top: 8px; }
     h1 { font-size: 1.9rem; }
   }
+/* Адаптив: на узких экранах — стрелки ближе друг к другу */
+@media (max-width: 480px) {
+  .arrows-up {
+    gap: 18px;
+  }
+  .arrow-left { margin-left: -20px; }
+  .arrow-right { margin-right: -20px; }
+  .hint-message {
+    font-size: 0.85rem;
+  }
+}
 </style>
 </head>
 <body>
@@ -267,11 +346,31 @@
     <div class="circle-item" data-target="desc-aveda">
       <img src="aveda.jpg" alt="Aveda">
     </div>
+
+
     <div class="circle-item" data-target="desc-image">
       <img src="image_skincare.jpg" alt="IMAGE Skincare">
     </div>
   </div>
 
+  <!-- Подсказка ПОД кружками -->
+  <div class="hint-below">
+
+    <div class="arrows-up">
+      <div class="arrow-up arrow-left">
+        <svg width="59" height="59" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 19V5M5 12l7-7 7 7" />
+        </svg>
+      </div>
+	      <span class="hint-message">Click here<br>to learn more</span>
+      <div class="arrow-up arrow-right">
+        <svg width="59" height="59" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 19V5M5 12l7-7 7 7" />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <!-- Описания -->
   <div id="desc-aveda" class="circle-description">
     <h3>About Aveda</h3>
     <p>Customized Aveda Facials based on the Elemental Nature Consultation and special facial techniques.<br>
@@ -313,42 +412,6 @@
   </div>
 </div>
 
-<!--
-<div class="image-toggle">
-  <div class="circle-container">
-    <div class="circle-item" data-target="desc-aveda">
-      <img src="aveda.jpg" alt="Aveda">
-    </div>
-    <div class="circle-item" data-target="desc-image">
-      <img src="image_skincare.jpg" alt="IMAGE Skincare">
-    </div>
-  </div>
-
-  <div id="desc-aveda" class="circle-description">
-    <p>About Aveda</p>
-    <p>Customized Aveda Facials based on the Elemental Nature Consultation and special facial techniques.<br>
-    Each Tulasara facial includes a consultation, aromatherapy, and a series of short massages.</p>
-    <p>AVEDA is an American brand with a long-standing history and a presence in many countries worldwide. Since 1978, it has been a leader in professional cosmetics based on natural ingredients, created according to the principles of Ayurveda.<br>
-    Aveda products are made with 95% or more natural ingredients. They contain no artificial chemicals, colors, or fragrances, yet are potent enough to deliver professional results.<br>
-    The brand uses only the highest-quality ingredients, and all Aveda products are vegan and cruelty-free, which is important to many clients. The professional skincare line focuses not only on maintaining skin balance and care but also on addressing specific concerns such as acne and pigmentation issues.<br>
-    Aveda is the result of careful selection, expertise, and decades of experience in the beauty industry, making it a trusted choice for both professionals and clients seeking effective, natural skincare solutions.</p>
-    <p>Experience the Aveda Facial — a professional spa treatment and a ceremony for the soul and body.<br>
-    Each session combines natural, vegan ingredients with proven results, tailored to your skin’s needs to balance, rejuvenate, and address concerns such as acne or pigmentation. More than just skincare, it’s a relaxing ritual that nurtures both your skin and overall well-being.</p>
-  </div>
-
-  <div id="desc-image" class="circle-description">
-    <p>About IMAGE Skincare</p>
-    <p>Experience a true transformation with the #1 SPA brand in the USA.<br>
-    You deserve skincare that really works. Each IMAGE Skincare treatment is not just a massage or a mask. It is an intensive professional care that combines science, innovation, and genuine care for your skin.</p>
-    <p>Brand philosophy: “clean clinical skincare” — pure, safe ingredients with proven effectiveness. Over 50,000 skincare professionals worldwide trust IMAGE Skincare for professional treatments.</p>
-    <p>Why choose IMAGE Skincare treatments:<br>
-     • Proven effectiveness: formulas are clinically tested and deliver results in addressing signs of aging, dehydration, acne, and sensitive skin<br>
-     • Pure and safe ingredients: only what is beneficial for your skin, without harsh additives<br>
-     • Personalized approach: product lines are tailored for every skin type and concern — from anti-aging care to post-treatment recovery<br>
-     • Innovation and advanced technology: vitamin C, retinol, peptides, and microbiome support — everything for comprehensive and effective care</p>
-    <p>By choosing IMAGE Skincare, you choose treatments that truly transform your skin. Each session is a step toward your best version: your skin becomes radiant, healthy, and beautifully cared for.</p>
-  </div>
-</div>-->
 
 <!-- AVEDA TULASARA™ SENSITIVE FACIAL -->
 <div class="service">
