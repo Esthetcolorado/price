@@ -56,15 +56,17 @@
     max-width: 600px;
     margin: 0 auto;
   }
-  .service {
-    background: var(--card-bg);
-    border-radius: 18px;
-    box-shadow: var(--shadow);
-    margin-bottom: 28px;
-    overflow: hidden;
-    transition: box-shadow 0.3s, transform 0.2s;
-    border-top: 3px solid var(--primary-light);
-  }
+.service {
+  background: var(--card-bg);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  margin: 0 auto 28px; /* ← центрируем + нижний отступ */
+  max-width: 800px;   /* ← ограничиваем ширину (подберите нужное значение) */
+  width: 100%;        /* ← чтобы не превышал max-width */
+  overflow: hidden;
+  transition: box-shadow 0.3s, transform 0.2s;
+  border-top: 3px solid var(--primary-light);
+}
   .service:hover {
     box-shadow: 0 12px 40px rgba(142, 45, 226, 0.1);
     transform: translateY(-2px);
@@ -234,8 +236,6 @@
   text-transform: uppercase;
   letter-spacing: 1.2px;
 }
-
-
 
 .circle-description {
   background: var(--card-bg);
